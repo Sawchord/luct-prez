@@ -4,6 +4,24 @@ paginate: true
 footer:
 ---
 
+<style>
+table {
+    border-collapse:separate;
+    border-radius:12px;
+    border: 1px solid black;
+}
+th {
+    
+}
+tr {
+    border-bottom: 1px solid #dddddd;
+}
+tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+</style>
+
+
 # A decade in certificate transparency and what may come next
 
 ---
@@ -38,6 +56,7 @@ Any of those could potentially maliciously issue a certificate which could be us
 ## This is not a theoretic threat!
 
 Canonical example: [DigiNotar]() (2011)
+
 TL;DR: 
 - They got infiltrated
 - Attackers issued certificates against 500+ domains
@@ -75,7 +94,7 @@ Idea:
 
 ---
 
-## And where is the log?
+## And where are the logs?
 
 - Log operators maintain a merkle tree containing log entries
 - Entries can be precerts or full certificates
@@ -267,7 +286,7 @@ We don't need to ask permission!
 
 ## luCT privacy
 
-Poor persons VPN:
+Oblivious proxy:
 
 - Uses two layers of TLS (TLS stack compiled into wasm)
 - Outer TLS connection to a proxy
@@ -291,18 +310,46 @@ TODO: Explain Gossiping
 
 ---
 
-## Please try this at home!
+## Where do we stand?
 
-Ways to get involved
 
-TODO
+Situation | Attack requirement | Tamper evident
+-----|------|:------
+CA only | control 1 CA | No
+CA + CT (today) | control 1 CA + 2 CT | No 
+CA + CT + luCT | control 1 CA + 2 CT  | **Yes**
+CA + CT + luCT + Gossip | control 1 CA + 2 CT + peers | **Yes**
+
+---
+
+## Definitely try this at home!
+
+
+- If you are a website admin: 
+    - Check [crt.sh](crt.sh) and subscribe to E-Mail alert
+- If you work for an organisation that has lots of computers (like a datacenter):
+    - Consider becoming a log operator
+- If you can put up with half backed software:
+    - **Try out luCT!**
+
+Lets get in touch: [matrix.lucius-labs.org](matrix.lucius-labs.org)
 
 ---
 
 ## Outlook
 <!-- header: Outlook -->
 
-TODO: Where can we go with this protocol / technology in the future
+The story does not end here!
+
+Some ideas:
+
+- Log management (sealing STHs, metalogs??)
+- Use private information retrieval to fetch inclusion proofs
+- Content addressable tiles
+
+And transparency logs have also many applications outside of certificates, e.g.
+- Binary transparency logs
+- Key transparency logs
 
 ---
 
