@@ -94,17 +94,6 @@ Idea:
 
 ---
 
-## And where are the logs?
-
-- Log operators maintain a merkle tree containing log entries
-- Entries can be precerts or full certificates
-- A signed certificate timestamp (SCT) promises to include the cert within maximum merge delay (MMD)
-- Logs regularly publish current merkle root called signed tree head (STH)
-- Public API to request inclusion proof (check that cert is in the log)
-- Public API to request extension proof (check that new STH is extension of log)
-
----
-
 ## Situation in 2026
 
 - Browsers maintain a list of log operators and logs they recognize
@@ -112,12 +101,21 @@ Idea:
 - Certs require 2 (if TTL < 180 Days) or 3 SCTs to be valid
 - Governance of CT ecosystem via mailing list
 
+---
+
+## And where are the logs?
+
+- Log operators maintain a merkle tree containing log entries
+- Entries can be precerts or full certificates
+- A signed certificate timestamp (SCT) promises to include the cert within maximum merge delay (MMD)
+- Logs regularly publish signed tree head (STH)
 
 ---
 
-
 ## Who is looking at the logs?
 
+- Public API to request inclusion proof (check that cert is in the log)
+- Public API to request extension proof (check that new STH is extension of log)
 - Monitors / auditors tail logs
 - Some offer search engines such as [crt.sh](crt.sh)
 - Some offer to send E-Mails if certs are issued
@@ -170,10 +168,10 @@ Spoiler alert: A lot!
 
 ## Relying on Google's log list
 
-Fetching the the log list live from Google is a recipe for disaster:
+Fetching the log list for verification purposes is a recipe for disaster:
 
 - Intercept call to the endpoint and replace log list with malicious logs
-- Logs will approve the certificate of the request
+- Logs will approve the certificate of the request to the endpoint
 - Basically back to the 2016 situation
 
 ---
@@ -183,11 +181,23 @@ Fetching the the log list live from Google is a recipe for disaster:
 A way more trivial issue that actually happened:
 
 - There is an android client library for CT enforcement
-- Basic idea is that it has less issues than certificate pinning
-- It used log list V2
-- Google shuts it down, developers miss deprecation warning
+- Supposedly alternative to certificate pinning
+- Google shuts down v2 list
+- Developers miss deprecation warning
 - Millions of apps break
 - 100s of millions of dollars go up in smoke
+
+---
+
+## Relying on Google's log list
+
+- Monitors can fetch the list from the endpoint
+- Clients must vendor the list 
+- Distribute it using established update channels
+- **How to secure the update channel?**
+- CT has a chicken and egg problem here
+
+**It can not entirely replace certificate pinning!**
 
 ---
 
@@ -196,7 +206,7 @@ A way more trivial issue that actually happened:
 New RFC 9162
 
 - Obsoletes RFC 6962
-- Mostly concerned about cryptoagility
+- Mostly concerned with cryptoagility
 - **Was never adopted :(**
 
 ---
