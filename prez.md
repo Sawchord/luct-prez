@@ -162,13 +162,14 @@ Spoiler alert: A lot!
 - Chromiums `log_list.json` has effectively become the consensus
 - Is served at [https://www.gstatic.com/ct/log_list/v3/log_list.json](https://www.gstatic.com/ct/log_list/v3/log_list.json)
 - The schema is not part of the standard but ad-hoc by google
-- The list is vendored into Chromium and Firefox (and Safari ??)
+- The list is vendored into Chromium and Firefox
+- Safari: TODO
 
 ---
 
-## Relying on Google's log list
+## Issues with log lists
 
-Fetching the log list for verification purposes is a recipe for disaster:
+Fetching the log list for verification purposes is problematic:
 
 - Intercept call to the endpoint and replace log list with malicious logs
 - Logs will approve the certificate of the request to the endpoint
@@ -176,7 +177,7 @@ Fetching the log list for verification purposes is a recipe for disaster:
 
 ---
 
-## Relying on Google's log list
+## Issues with log lists
 
 A way more trivial issue that actually happened:
 
@@ -189,9 +190,9 @@ A way more trivial issue that actually happened:
 
 ---
 
-## Relying on Google's log list
+## Issues with log lists
 
-- Monitors can fetch the list from the endpoint
+- CAs and monitors can fetch log lists just fine
 - Clients must vendor the list 
 - Distribute it using established update channels
 - **How to secure the update channel?**
@@ -207,6 +208,8 @@ New RFC 9162
 
 - Obsoletes RFC 6962
 - Mostly concerned with cryptoagility
+- 5 years of delay
+- "Too little, too late" - The authors
 - **Was never adopted :(**
 
 ---
@@ -240,7 +243,7 @@ This is being rolled out as we speak. Currently RFC 6962 and static-ct logs coex
 - It names 3 gossiping methods
 - **Latest revision 2018-01-14 :(**
 
-Not much momentum here right now.
+Not much momentum here right now
 
 ---
 
@@ -249,7 +252,6 @@ Not much momentum here right now.
 - There is no cryptographic link between an SCT and the log entry
 - Browsers do not check the log entries corresponding to an SCT
 - Chromium seems to have a stochastic checking mechanism
-- Firefox does nothing
 
 Conclusion: 
 - A state level actor could mount targeted attacks by coercing 1 CA + 2 CTs
@@ -260,14 +262,14 @@ Conclusion:
 
 ## Why browsers don't check logs
 
-Scability:
+Scalability:
 - It's an "interactive" proof against an STH
 - What if logs are offline?
 - ~100KB traffic per proof.
     Acceptable for user, but insane amount of traffic on a log
 
 Privacy: 
-- Asking a log for an inclusion proof gives away which website we are visiting
+- Asking a log for an inclusion proof gives away which website is visited
 
 ---
 
@@ -282,7 +284,6 @@ Privacy:
 Note that the log data is public. We can build those things!
 We don't need to ask permission!
 
-
 ---
 
 ## luCT
@@ -291,6 +292,10 @@ We don't need to ask permission!
 - Keeps record of STHs, checks extension proofs
 - Fetches SCTs from TLS handshakes
 - Fetches and validates inclusion proofs from logs
+
+---
+
+TODO: Gif showing the tool
 
 ---
 
@@ -306,17 +311,20 @@ Oblivious proxy:
 
 **If you can, use proper VPN or TOR :P**
 
+
 ---
 
 ## luCT security policy
 
-TODO: Explain the policy
-
----
-
-## Planned features
-
-TODO: Explain Gossiping
+- Let N = 2 if TTL $\leq$ 180d, else N = 3
+- Cert contains N SCTs from known logs with matching signatures
+- K SCTs validate against log
+- SCT validates against log iff:
+    - There is STH newer than 24h or log is readonly
+    - SCT validated against oldest possible STH
+    - Extension proof of old STH to new STH was checked
+    - K = 1 if oldest STH $\geq$ 24h, else K = 2
+    - STH age by own timestamps NOT included timestamps
 
 ---
 
@@ -329,6 +337,18 @@ CA only | control 1 CA | No
 CA + CT (today) | control 1 CA + 2 CT | No 
 CA + CT + luCT | control 1 CA + 2 CT  | **Yes**
 CA + CT + luCT + Gossip | control 1 CA + 2 CT + peers | **Yes**
+
+---
+
+## What else could we do?
+
+This is a loose collection of ideas, their actual utility remains to be demonstrated!
+
+- Ability to block unused/untrustworthy CAs
+- Build a network of STH checkpointers
+- Check CAA (RFC 8659) or TLSA (RFC 6698) records via DNS over HTTPs
+- Use private information retrieval instead of TLS proxy
+- Collect the luCT metrics somehow (without breaking privacy!)
 
 ---
 
@@ -353,8 +373,7 @@ The story does not end here!
 
 Some ideas:
 
-- Log management (sealing STHs, metalogs??)
-- Use private information retrieval to fetch inclusion proofs
+- Log list management (sealing STHs, metalogs??)
 - Content addressable tiles
 
 And transparency logs have also many applications outside of certificates, e.g.
@@ -368,3 +387,11 @@ And transparency logs have also many applications outside of certificates, e.g.
 Questions?
 
 <!-- header: Questions? -->
+
+---
+
+# Bonus slides!
+
+---
+
+## Cosmic rays vs. certificate transparency

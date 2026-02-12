@@ -12,7 +12,7 @@ In the last section, I'll introduce luCT, a project I am working on, which attem
 
 ## Description
 
-Over the last decace, certificate transparency (CT) has become an integral part of the web's security infrastructure.
+Over the last decade, certificate transparency (CT) has become an integral part of the web's security infrastructure.
 
 However, the story of CT is far from finished.
 
