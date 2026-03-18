@@ -31,15 +31,23 @@ tr:last-of-type {
 TODO
 
 ---
+# Recap
 
-# Quick recap
+---
+
+# Prior talks
 <!-- header: Recap -->
 
 - There are multiple good talks on CT. Go watch them!
     - [Everything you always wanted to know about Certificate Transparency](https://media.ccc.de/v/33c3-8167-everything_you_always_wanted_to_know_about_certificate_transparency)
     - [Who watches the watchers in Web PKI?](www.example.com)
 - These talks focus on the protocol itself and the ongoing rollout
-- This talk is about what happened since and what is on the agenda
+- This talk will focus on what happened since
+
+---
+## Motivation
+
+# Why Certificate Transparency?
 
 ---
 
@@ -96,29 +104,33 @@ Idea:
 
 ## Situation in 2026
 
-- Browsers maintain a list of log operators and logs they recognize
+- Browsers maintain a list of logs (url + pubkey) they recognize
 - Logs accept certificates of a certain expiration date (temporal sharding)
 - Certs require 2 (if TTL < 180 Days) or 3 SCTs to be valid
-- Governance of CT ecosystem via mailing list
 
 ---
 
-## And where are the logs?
+## Situation in 2026
 
-- Log operators maintain a merkle tree containing log entries
-- Entries can be precerts or full certificates
-- A signed certificate timestamp (SCT) promises to include the cert within maximum merge delay (MMD)
-- Logs regularly publish signed tree head (STH)
+- Log operators include logs in a merkle tree
+- Entries can be precerts or full certificates (cross-posting)
+- Logs regularly publish a signed tree head (STH)
 
 ---
 
-## Who is looking at the logs?
+## How validate the log?
 
+- Validate signed tree head against public key
 - Public API to request inclusion proof (check that cert is in the log)
 - Public API to request extension proof (check that new STH is extension of log)
+
+---
+
+## Who looks at logs?
 - Monitors / auditors tail logs
 - Some offer search engines such as [crt.sh](crt.sh)
 - Some offer to send E-Mails if certs are issued
+- Governance of CT ecosystem via mailing list
 
 ---
 
@@ -136,6 +148,9 @@ We are done here arent we?
 <!-- header: State of the union -->
 
 Spoiler alert: A lot!
+
+- Some ideas from original design have not caught on
+- Some issues emerged over time
 
 ---
 
@@ -161,44 +176,41 @@ Spoiler alert: A lot!
 
 - Chromiums `log_list.json` has effectively become the consensus
 - Is served at [https://www.gstatic.com/ct/log_list/v3/log_list.json](https://www.gstatic.com/ct/log_list/v3/log_list.json)
-- The schema is not part of the standard but ad-hoc by google
+- The schema is not part of the standard but ad-hoc by Google
 - The list is vendored into Chromium and Firefox
-- Safari: TODO
+- Safari: [https://valid.apple.com/ct/log_list/current_log_list.json](https://valid.apple.com/ct/log_list/current_log_list.json)
+
+---
+
+## How to get on the log list?
+
+- Write an application to Chromium (via bug issue)
+- Submit contact info, pubkeys, urls, maximum merge delay etc,
+- Keep the log running, Google will test is regularly
+- After a while you will get included
+- Maintain 99% uptime
 
 ---
 
 ## Issues with log lists
 
-Fetching the log list for verification purposes is problematic:
+CT has a kind of chicken and egg problem
 
-- Intercept call to the endpoint and replace log list with malicious logs
-- Logs will approve the certificate of the request to the endpoint
-- Basically back to the 2016 situation
-
----
-
-## Issues with log lists
-
-A way more trivial issue that actually happened:
-
-- There is an android client library for CT enforcement
-- Supposedly alternative to certificate pinning
-- Google shuts down v2 list
-- Developers miss deprecation warning
-- Millions of apps break
-- 100s of millions of dollars go up in smoke
-
----
-
-## Issues with log lists
-
-- CAs and monitors can fetch log lists just fine
 - Clients must vendor the list 
 - Distribute it using established update channels
 - **How to secure the update channel?**
-- CT has a chicken and egg problem here
 
-**It can not entirely replace certificate pinning!**
+**It can not replace certificate pinning!**
+
+---
+
+## Issues with log lists
+
+- There is an android client library for CT enforcement
+- Supposedly alternative to certificate pinning
+- Google changes schema from v2 to v3
+- Developers miss deprecation warning
+- 100+ Million of user affected
 
 ---
 
@@ -222,9 +234,10 @@ Problem: RFC 6962 API requires server to compile proofs
 
 Solution: Store merkle tree in a static file format
 - Read path of log is a static file server
+- Can be georeplicated
 - CDNs can cache the files
 
-This is being rolled out as we speak. Currently RFC 6962 and static-ct logs coexist
+**This is being rolled right now. Currently RFC 6962 and static-ct logs coexist**
 
 ---
 
@@ -251,12 +264,7 @@ Not much momentum here right now
 
 - There is no cryptographic link between an SCT and the log entry
 - Browsers do not check the log entries corresponding to an SCT
-- Chromium seems to have a stochastic checking mechanism
-
-Conclusion: 
-- A state level actor could mount targeted attacks by coercing 1 CA + 2 CTs
-- Very likely this will not be detected
-
+- Chromium seems to have a random checking mechanism
 
 --- 
 
@@ -264,19 +272,30 @@ Conclusion:
 
 Scalability:
 - It's an "interactive" proof against an STH
-- What if logs are offline?
+- What is the failure mode if logs are offline?
 - ~100KB traffic per proof.
     Acceptable for user, but insane amount of traffic on a log
 
 Privacy: 
-- Asking a log for an inclusion proof gives away which website is visited
+- Asking a log for a proof gives away which website is visited
+
+---
+
+### Conclusion
+
+A threat actor could mount an attack by coercing 1 root CA + 2 CT logs
+
+- Fake SCTs are very likely not be detected
+- Selectively serving a forked log will very likely not be detected
+
+It is relatively easy to become a log operator (and it should be!).
 
 ---
 
 ## What can we do?
 <!-- header: luCT -->
 
-- Browsers (other clients) should be able to inspect log artifacts privately
+- Browsers (and other clients) should be able to inspect the log
 - Should not be the default behavior
 - People at risk should be able to do this nonetheless
 - There should be a gossiping mechanism
@@ -301,7 +320,7 @@ TODO: Gif showing the tool
 
 ## luCT privacy
 
-Oblivious proxy:
+Oblivious proxy (WIP):
 
 - Uses two layers of TLS (TLS stack compiled into wasm)
 - Outer TLS connection to a proxy
@@ -311,9 +330,7 @@ Oblivious proxy:
 
 **If you can, use proper VPN or TOR :P**
 
-
 ---
-
 ## luCT security policy
 
 - Let N = 2 if TTL $\leq$ 180d, else N = 3
@@ -323,20 +340,39 @@ Oblivious proxy:
     - There is STH newer than 24h or log is readonly
     - SCT validated against oldest possible STH
     - Extension proof of old STH to new STH was checked
-    - K = 1 if oldest STH $\geq$ 24h, else K = 2
+    - K = 1 if validated against STH $\geq$ 24h, else K = N
     - STH age by own timestamps NOT included timestamps
+
+---
+
+## luCT gossip
+
+Nope, not yet!
+
+**Idea:**
+- Fetch STHs from network of checkpointing servers
 
 ---
 
 ## Where do we stand?
 
 
-Situation | Attack requirement | Tamper evident
+Scenario | Attack requirement | Attack
 -----|------|:------
-CA only | control 1 CA | No
-CA + CT (today) | control 1 CA + 2 CT | No 
-CA + CT + luCT | control 1 CA + 2 CT  | **Yes**
-CA + CT + luCT + Gossip | control 1 CA + 2 CT + peers | **Yes**
+CA only (2016) | 1 CA | Rogue cert
+CA + CT (today) | 1 CA + 2 CT | Rogue cert + fake SCTs
+CA + CT + luCT (soon) | 1 CA + 2 CT  | Rogue cert + forked logs
+CA + CT + luCT + Gossip | 1 CA + 2 CT + **peers** | ?
+
+---
+
+## There is one issue left
+
+What if an attacker just submits a rogue certificate to honest logs, but the website owner don't care to ever check logs for rogue certificates?
+
+**Idea:**
+
+- Check CAA (RFC 8659) and TLSA (RFC 6698) records via DNS over HTTPs
 
 ---
 
@@ -344,16 +380,14 @@ CA + CT + luCT + Gossip | control 1 CA + 2 CT + peers | **Yes**
 
 This is a loose collection of ideas, their actual utility remains to be demonstrated!
 
+
 - Ability to block unused/untrustworthy CAs
-- Build a network of STH checkpointers
-- Check CAA (RFC 8659) or TLSA (RFC 6698) records via DNS over HTTPs
 - Use private information retrieval instead of TLS proxy
 - Collect the luCT metrics somehow (without breaking privacy!)
 
 ---
 
 ## Definitely try this at home!
-
 
 - If you are a website admin: 
     - Check [crt.sh](crt.sh) and subscribe to E-Mail alert
