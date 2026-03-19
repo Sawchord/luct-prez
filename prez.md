@@ -120,9 +120,9 @@ Idea:
 
 ## How validate the log?
 
-- Validate signed tree head against public key
-- Public API to request inclusion proof (check that cert is in the log)
-- Public API to request extension proof (check that new STH is extension of log)
+- Request and validate signed tree head against public key
+- Request inclusion proof, check that cert is in the log
+- Request extension proof, check that new STH is extension of log
 
 ---
 
@@ -136,8 +136,9 @@ Idea:
 
 ## Situation in 2026
 
-# Success!!!
+# Success?
 
+CT is widely deployed.
 We are done here arent we?
 
 ![bg right 80%](pics/htph_thumbs_up.jpg)
@@ -207,12 +208,16 @@ CT has a kind of chicken and egg problem
 ## Issues with log lists
 
 - There is an android client library for CT enforcement
-- Supposedly alternative to certificate pinning
+- Supposedly alternative to certificate pinning for Apps
 - Google changes schema from v2 to v3
-- Developers miss deprecation warning
-- 100+ Million of user affected
+- Developers forget to update library
+- App breaks, 100+ Million of user affected
 
 ---
+
+## Issues with log lists
+
+TODO: How google fixed it
 
 ## Logs v2
 
@@ -350,7 +355,8 @@ Oblivious proxy (WIP):
 Nope, not yet!
 
 **Idea:**
-- Fetch STHs from network of checkpointing servers
+- Fetch STH timeline from network of checkpointing servers
+- Validate extension proofs on timeline
 
 ---
 
@@ -368,11 +374,12 @@ CA + CT + luCT + Gossip | 1 CA + 2 CT + **peers** | ?
 
 ## There is one issue left
 
-What if an attacker just submits a rogue certificate to honest logs, but the website owner don't care to ever check logs for rogue certificates?
+What if an attacker just submits a rogue certificate to honest logs, but the website owners don't care to ever check logs for rogue certificates?
 
 **Idea:**
 
 - Check CAA (RFC 8659) and TLSA (RFC 6698) records via DNS over HTTPs
+- Display special icon if entries match
 
 ---
 
@@ -391,7 +398,7 @@ This is a loose collection of ideas, their actual utility remains to be demonstr
 
 - If you are a website admin: 
     - Check [crt.sh](crt.sh) and subscribe to E-Mail alert
-- If you work for an organisation that has lots of computers (like a datacenter):
+- If you have lots of compute:
     - Consider becoming a log operator
 - If you can put up with half backed software:
     - **Try out luCT!**
@@ -407,12 +414,18 @@ The story does not end here!
 
 Some ideas:
 
-- Log list management (sealing STHs, metalogs??)
+- Sealing STHs
+- Better Log list management
 - Content addressable tiles
+---
+
+## Outlook
 
 And transparency logs have also many applications outside of certificates, e.g.
 - Binary transparency logs
 - Key transparency logs
+
+These systems have been deployed to some degree, e.g. WhatApp.
 
 ---
 
