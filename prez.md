@@ -19,7 +19,13 @@ tr {
 tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
+.columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
 </style>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 
 # A decade in certificate transparency and what may come next
@@ -102,15 +108,7 @@ Idea:
 
 ---
 
-## Situation in 2026
-
-- Browsers maintain a list of logs (url + pubkey) they recognize
-- Logs accept certificates of a certain expiration date (temporal sharding)
-- Certs require 2 (if TTL < 180 Days) or 3 SCTs to be valid
-
----
-
-## Situation in 2026
+## Certificate transparency
 
 - Log operators include logs in a merkle tree
 - Entries can be precerts or full certificates (cross-posting)
@@ -118,7 +116,7 @@ Idea:
 
 ---
 
-## How validate the log?
+## Validating logs
 
 - Request and validate signed tree head against public key
 - Request inclusion proof, check that cert is in the log
@@ -127,10 +125,18 @@ Idea:
 ---
 
 ## Who looks at logs?
-- Monitors / auditors tail logs
+- Monitors tail logs
 - Some offer search engines such as [crt.sh](crt.sh)
 - Some offer to send E-Mails if certs are issued
 - Governance of CT ecosystem via mailing list
+
+---
+
+## Situation in 2026
+
+- Browsers maintain a list of logs (url + pubkey) they recognize
+- Logs accept certificates of a certain expiration date (temporal sharding)
+- Certs require 2 (if TTL < 180 Days) or 3 SCTs to be valid
 
 ---
 
@@ -146,12 +152,16 @@ We are done here arent we?
 ---
 
 ## What is left to do?
-<!-- header: State of the union -->
 
 Spoiler alert: A lot!
 
 - Some ideas from original design have not caught on
 - Some issues emerged over time
+
+---
+<!-- header: The ecosystem -->
+
+![bg 70%](diagrams/CT_ecosystem_ideal.svg)
 
 ---
 
@@ -186,7 +196,7 @@ Spoiler alert: A lot!
 
 ## How to get on the log list?
 
-- Write an application to Chromium (via bug issue)
+- Write an application to Chromium (via bug tracker)
 - Submit contact info, pubkeys, urls, maximum merge delay etc,
 - Keep the log running, Google will test is regularly
 - After a while you will get included
@@ -234,11 +244,11 @@ Log lists have a kind of chicken and egg problem
 
 ## Non web browser clients
 
-- Google claims that CT should only every be used in browsers
+- Google claims that CT should only be used in browsers
 
-But:
+But on the other hand:
 
-**Notepad++ attack would be prevented if updater used CT**
+- **CT could likely have prevented Notepad++ attack**
 
 ---
 
@@ -295,6 +305,7 @@ Not much momentum here right now
 - There is no cryptographic link between an SCT and the log entry
 - Browsers do not check the log entries corresponding to an SCT
 - Chromium seems to have a random checking mechanism
+- External auditing services exist but not used widely
 
 --- 
 
@@ -308,6 +319,10 @@ Scalability:
 
 Privacy: 
 - Asking a log for a proof gives away which website is visited
+
+---
+
+![bg 70%](diagrams/CT_ecosystem_real.svg)
 
 ---
 
@@ -385,7 +400,7 @@ Nope, not yet!
 
 ---
 
-## Where do we stand?
+## Threat model?
 
 
 Scenario | Attack requirement | Attack
@@ -399,7 +414,7 @@ CA + CT + luCT + Gossip | 1 CA + 2 CT + **peers** | ?
 
 ## There is one issue left
 
-What if an attacker just submits a rogue certificate to honest logs, but the website owners don't care to ever check logs for rogue certificates?
+What if an attacker just submits a rogue certificate to honest logs, but the domain owners don't care to ever check logs for rogue certificates?
 
 **Idea:**
 
@@ -410,14 +425,13 @@ What if an attacker just submits a rogue certificate to honest logs, but the web
 
 ## Definitely try this at home!
 
-- If you are a website admin: 
+- If you are a website admin / domain owner: 
     - Check [crt.sh](crt.sh) and subscribe to E-Mail alert
 - If you have lots of compute:
     - Consider becoming a log operator
 - If you can put up with half backed software:
     - **Try out luCT!**
 
-Lets get in touch: [matrix.lucius-labs.org](matrix.lucius-labs.org)
 
 ---
 
@@ -444,11 +458,28 @@ These systems have been deployed to some degree, e.g. Go package manager, WhatAp
 
 ---
 
+<!-- header: Questions? -->
+
+<div class="columns">
+<div>
+
 # TYSM!!
 
 Questions?
 
-<!-- header: Questions? -->
+</div>
+<div>
+
+## Lets get in touch!
+
+<i class="fa fa-at" aria-hidden="true"></i> [luct.dev](luct.dev)
+
+<i class="fa fa-github" aria-hidden="true"></i> [github.com/Sawchord/luct](https://github.com/Sawchord/luct)
+
+<i class="fa fa-comment" aria-hidden="true"></i> [matrix.luct.dev](matrix.luct.dev)
+
+</div>
+</div>
 
 ---
 
