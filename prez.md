@@ -400,15 +400,18 @@ Nope, not yet!
 
 ---
 
-## Threat model?
-
+## Threat model
 
 Scenario | Attack requirement | Attack
 -----|------|:------
 CA only (2016) | 1 CA | Rogue cert
 CA + CT (today) | 1 CA + 2 CT | Rogue cert + fake SCTs
 CA + CT + luCT (soon) | 1 CA + 2 CT  | Rogue cert + forked logs
-CA + CT + luCT + Gossip | 1 CA + 2 CT + **peers** | ?
+CA + CT + luCT + Gossip | 1 CA + 2 CT + checkpointer | Full eclipse?
+
+---
+
+![bg 70%](diagrams/CT_ecosystem_luct.svg)
 
 ---
 
