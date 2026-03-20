@@ -156,6 +156,7 @@ Spoiler alert: A lot!
 ---
 
 ## Current log operators
+<!-- header: Log operators -->
 
 - Google (US)
 - Cloudflare (US)
@@ -194,8 +195,34 @@ Spoiler alert: A lot!
 ---
 
 ## Issues with log lists
+<!-- header: Log lists -->
 
-CT has a kind of chicken and egg problem
+- Log lists are not part of the CT standard
+- Ad-hoc invention by chromium
+
+This has lead to some problems
+
+---
+
+## Issues with log lists
+
+- Supposedly alternative to certificate pinning for Apps
+- There is an android library for CT enforcement
+- Google changes schema from v2 to v3
+- Developers forget to update library
+- App breaks, 100+ Million of user affected
+
+---
+
+## Issues with log lists
+
+- Google added two fake logs to v2 called mimics
+- Published the private keys
+- Allows CAs to circumvent CT for clients that rely on the log list
+---
+
+## Issues with log lists
+Log lists have a kind of chicken and egg problem
 
 - Clients must vendor the list 
 - Distribute it using established update channels
@@ -205,21 +232,18 @@ CT has a kind of chicken and egg problem
 
 ---
 
-## Issues with log lists
+## Non web browser clients
 
-- There is an android client library for CT enforcement
-- Supposedly alternative to certificate pinning for Apps
-- Google changes schema from v2 to v3
-- Developers forget to update library
-- App breaks, 100+ Million of user affected
+- Google claims that CT should only every be used in browsers
+
+But:
+
+**Notepad++ attack would be prevented if updater used CT**
 
 ---
 
-## Issues with log lists
-
-TODO: How google fixed it
-
 ## Logs v2
+<!-- header: Standards -->
 
 New RFC 9162
 
@@ -266,6 +290,7 @@ Not much momentum here right now
 ---
 
 ## How about auditing?
+<!-- header: Auditing -->
 
 - There is no cryptographic link between an SCT and the log entry
 - Browsers do not check the log entries corresponding to an SCT
@@ -383,17 +408,6 @@ What if an attacker just submits a rogue certificate to honest logs, but the web
 
 ---
 
-## What else could we do?
-
-This is a loose collection of ideas, their actual utility remains to be demonstrated!
-
-
-- Ability to block unused/untrustworthy CAs
-- Use private information retrieval instead of TLS proxy
-- Collect the luCT metrics somehow (without breaking privacy!)
-
----
-
 ## Definitely try this at home!
 
 - If you are a website admin: 
@@ -414,6 +428,7 @@ The story does not end here!
 
 Some ideas:
 
+- CT logs with private information retrieval
 - Sealing STHs
 - Better Log list management
 - Content addressable tiles
@@ -425,7 +440,7 @@ And transparency logs have also many applications outside of certificates, e.g.
 - Binary transparency logs
 - Key transparency logs
 
-These systems have been deployed to some degree, e.g. WhatApp.
+These systems have been deployed to some degree, e.g. Go package manager, WhatApp
 
 ---
 
