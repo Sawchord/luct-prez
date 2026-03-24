@@ -31,17 +31,16 @@ tr:last-of-type {
 # A decade in certificate transparency and what may come next
 
 ---
-# Whoami
-<!-- header: Whoami -->
+<!-- header: Disclaimer -->
 
-TODO
+# Disclaimer
 
----
-<!-- header: Recap -->
-
-# Recap
+I am not affiliated with any party mentioned in this talk!
+Views expressed here are my own.
+I do not claim to represent the CT ecosystem as a whole.
 
 ---
+<!-- header: Prior talks -->
 
 # Prior talks
 
@@ -53,6 +52,7 @@ TODO
 
 ---
 ## Motivation
+<!-- header: Motivation -->
 
 # Why Certificate Transparency?
 
@@ -103,7 +103,6 @@ Idea:
 ![bg 70%](diagrams/CA_exchange.svg)
 
 ---
-<!-- header: Situation today -->
 
 ![bg 70%](diagrams/CT_exchange.svg)
 
@@ -125,8 +124,8 @@ Idea:
 
 ---
 
-## Who looks at logs?
-- Monitors tail logs
+## Monitors
+- Follow (tail) logs
 - Some offer search engines such as [crt.sh](https://crt.sh)
 - Some offer to send E-Mails if certs are issued
 - Governance of CT ecosystem via mailing list
@@ -160,11 +159,6 @@ Spoiler alert: A lot!
 - Some issues emerged over time
 
 ---
-<!-- header: The ecosystem -->
-
-![bg 70%](diagrams/CT_ecosystem_ideal.svg)
-
----
 <!-- header: Log operators -->
 
 # Log operators
@@ -189,23 +183,22 @@ Spoiler alert: A lot!
 
 ---
 
-## Who maintains the list of trusted logs?
+## Log list maintainers
 
 - Chromiums `log_list.json` has effectively become the consensus
 - Is served at [https://www.gstatic.com/ct/log_list/v3/log_list.json](https://www.gstatic.com/ct/log_list/v3/log_list.json)
-- The schema is not part of the standard but ad-hoc by Google
 - The list is vendored into Chromium and Firefox
 - Safari: [https://valid.apple.com/ct/log_list/current_log_list.json](https://valid.apple.com/ct/log_list/current_log_list.json)
 
 ---
 
-## How to get on the log list?
+## How to get on the log list
 
 [Chromium Certificate Transparency Log Policy](https://googlechrome.github.io/CertificateTransparency/log_policy.html): 
 - Write an application to Chromium (via bug tracker)
-- Submit contact info, pubkeys, urls, maximum merge delay etc,
+- Submit contact info, pubkeys, urls, maximum merge delay etc
 - Keep the log running, Google will test is regularly
-- After a while you will get included
+- Follow the mailing lists
 - Maintain 99% uptime
 
 ---
@@ -215,18 +208,14 @@ Spoiler alert: A lot!
 
 ---
 
-## Log lists
+The schema is not part of the standard but ad-hoc invention by the Chromium team.
 
-- Log lists are not part of the CT standard
-- Ad-hoc invention by chromium
-
-**This has lead to some problems**
+**This has created a lot of problems**
 
 ---
 
 ## Issue with fetching log lists
 
-- Supposedly alternative to certificate pinning for Apps
 - There is an android library for CT enforcement
 - Google changes schema from v2 to v3
 - Developers forget to update library
@@ -234,7 +223,7 @@ Spoiler alert: A lot!
 
 ---
 
-## Solution
+## Workaround
 
 - Google added two fake logs to v2 called mimics
 - Published the private keys
@@ -263,9 +252,9 @@ But on the other hand:
 - **CT could likely have prevented Notepad++ attack**
 
 ---
-<!-- header: Standards -->
+<!-- header: Standard -->
 
-# Development of the standards
+# Development of the standard
 
 ---
 
@@ -295,8 +284,17 @@ Solution: Store merkle tree in a static file format
 **This is being rolled right now. Currently RFC 6962 and [static-ct](https://github.com/C2SP/C2SP/blob/main/static-ct-api.md) logs coexist**
 
 ---
+<!-- header: Adoption -->
 
-## What about Gossiping?
+# Adoption 
+
+---
+
+![bg 70%](diagrams/CT_ecosystem_ideal.svg)
+
+---
+
+## Gossiping
 
 - Forking is computationally cheap (this is not a blockchain)
 - To prevent / detect forked logs requires clients to exchange STHs
@@ -309,15 +307,14 @@ Solution: Store merkle tree in a static file format
 - There is a document from IETF
     - [draft-ietf-trans-gossip-05](https://datatracker.ietf.org/doc/draft-ietf-trans-gossip/)
 - It names 3 gossiping methods
-    - TODO: Name the types
+    - SCT feedback: Send SCT to an auditor via server
+    - STH pollination: Clients share STHs via pools
+    - Trusted Auditor relationship
 - **Latest revision 2018-01-14 :(**
-
-Not much momentum here right now
 
 ---
 
-## How about auditing?
-<!-- header: Auditing -->
+## Auditing
 
 - There is no cryptographic link between an SCT and the log entry
 - Browsers do not check the log entries corresponding to an SCT
@@ -355,13 +352,15 @@ It is relatively easy to become a log operator (and it should be!).
 ---
 <!-- header: luCT -->
 
-# luCT: Auditing directly in the browser
+## Auditing directly in the browser
+
+# luCT 
 
 ---
 
 ## What can we do?
 
-- Browsers (and other clients) should be able to inspect the log
+- Browsers (and other clients) should be able to audit the log
 - Should not be the default behavior
 - People at risk should be able to do this nonetheless
 - There should be a gossiping mechanism
@@ -384,7 +383,7 @@ TODO: Gif showing the tool
 
 ---
 
-## luCT privacy
+## Privacy
 
 Oblivious proxy (WIP):
 
@@ -397,7 +396,7 @@ Oblivious proxy (WIP):
 **If you can, use proper VPN or TOR :P**
 
 ---
-## luCT security policy
+## Security policy
 
 - Let N = 2 if TTL $\leq$ 180d, else N = 3
 - Cert contains N SCTs from known logs with matching signatures
@@ -411,20 +410,21 @@ Oblivious proxy (WIP):
 
 ---
 
-## luCT gossip
+## Gossip
 
 Nope, not yet!
 
 Idea:
-- Fetch STH timeline from network of checkpointing servers
-- Validate extension proofs on timeline
+- Fleet of checkpoint servers fetch STHs at random
+- luCT fetches new STHs from checkpointers
+- Fetches extension proofs of the timeline
 
 ---
 
 ## Threat model
 
 Scenario | Attack requirement | Attack
------|------|:------
+-----|------|------
 CA only (2016) | 1 CA | Rogue cert
 CA + CT (today) | 1 CA + 2 CT | Rogue cert + fake SCTs
 CA + CT + luCT (soon) | 1 CA + 2 CT  | Rogue cert + forked logs
@@ -451,11 +451,12 @@ Idea:
 ## Definitely try this at home!
 
 - If you are a website admin / domain owner: 
-    - Check [crt.sh](https://crt.sh) and subscribe to E-Mail alert
+    - Check [crt.sh](https://crt.sh) and subscribe to E-Mail alert (e.g. cloudflare)
 - If you have lots of compute:
     - Consider becoming a log operator
 - If you can put up with half backed software:
     - **Try out luCT!**
+    - Help wanted!
 
 
 ---
@@ -472,7 +473,7 @@ Some ideas:
 
 - CT logs with private information retrieval
 - Sealing STHs
-- Better Log list management
+- Better log list management
 - Content addressable tiles
 ---
 
@@ -497,7 +498,7 @@ Idea:
 
 ---
 
-<!-- header: Questions? -->
+<!-- header: Question? -->
 
 <div class="columns">
 <div>
@@ -510,7 +511,7 @@ Idea:
 </div>
 <div>
 
-## Lets get in touch!
+## Lets stay in touch!
 
 <i class="fa fa-at" aria-hidden="true"></i> [luct.dev](https://luct.dev)
 <i class="fa fa-github" aria-hidden="true"></i> [github.com/Sawchord/luct](https://github.com/Sawchord/luct)
