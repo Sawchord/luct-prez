@@ -37,16 +37,17 @@ tr:last-of-type {
 TODO
 
 ---
+<!-- header: Recap -->
+
 # Recap
 
 ---
 
 # Prior talks
-<!-- header: Recap -->
 
 - There are multiple good talks on CT. Go watch them!
     - [Everything you always wanted to know about Certificate Transparency](https://media.ccc.de/v/33c3-8167-everything_you_always_wanted_to_know_about_certificate_transparency)
-    - [Who watches the watchers in Web PKI?](www.example.com)
+    - Who watches the watchers in Web PKI? TODO: Link
 - These talks focus on the protocol itself and the ongoing rollout
 - This talk will focus on what happened since
 
@@ -69,7 +70,7 @@ Any of those could potentially maliciously issue a certificate which could be us
 
 ## This is not a theoretic threat!
 
-Canonical example: [DigiNotar]() (2011)
+Canonical example: DigiNotar TODO: Link (2011)
 
 TL;DR: 
 - They got infiltrated
@@ -94,7 +95,7 @@ Trusting CAs to keep a record of all the certificates they issued and investigat
 Idea:
 - Certificates need to be logged in a publicly verifiable audit log
 - Certificates embed some artifact that "proves" they have been logged
-- Standardized in RFC 6962
+- Standardized in RFC 6962 TODO: Link
 - There are more ways to use CT but they have not seen adoption
 
 ---
@@ -126,7 +127,7 @@ Idea:
 
 ## Who looks at logs?
 - Monitors tail logs
-- Some offer search engines such as [crt.sh](crt.sh)
+- Some offer search engines such as [crt.sh](https://crt.sh)
 - Some offer to send E-Mails if certs are issued
 - Governance of CT ecosystem via mailing list
 
@@ -164,9 +165,13 @@ Spoiler alert: A lot!
 ![bg 70%](diagrams/CT_ecosystem_ideal.svg)
 
 ---
+<!-- header: Log operators -->
+
+# Log operators
+
+---
 
 ## Current log operators
-<!-- header: Log operators -->
 
 - Google (US)
 - Cloudflare (US)
@@ -196,6 +201,7 @@ Spoiler alert: A lot!
 
 ## How to get on the log list?
 
+[Chromium Certificate Transparency Log Policy](https://googlechrome.github.io/CertificateTransparency/log_policy.html): 
 - Write an application to Chromium (via bug tracker)
 - Submit contact info, pubkeys, urls, maximum merge delay etc,
 - Keep the log running, Google will test is regularly
@@ -203,18 +209,22 @@ Spoiler alert: A lot!
 - Maintain 99% uptime
 
 ---
+<!-- header: Managing log lists -->
 
-## Issues with log lists
-<!-- header: Log lists -->
+# Managing log lists
+
+---
+
+## Log lists
 
 - Log lists are not part of the CT standard
 - Ad-hoc invention by chromium
 
-This has lead to some problems
+**This has lead to some problems**
 
 ---
 
-## Issues with log lists
+## Issue with fetching log lists
 
 - Supposedly alternative to certificate pinning for Apps
 - There is an android library for CT enforcement
@@ -224,14 +234,16 @@ This has lead to some problems
 
 ---
 
-## Issues with log lists
+## Solution
 
 - Google added two fake logs to v2 called mimics
 - Published the private keys
-- Allows CAs to circumvent CT for clients that rely on the log list
+- Allows CAs to generate 2 fake SCTs
+- Should be combined with 2 real SCTs
+
 ---
 
-## Issues with log lists
+## Vendoring log lists
 Log lists have a kind of chicken and egg problem
 
 - Clients must vendor the list 
@@ -251,9 +263,13 @@ But on the other hand:
 - **CT could likely have prevented Notepad++ attack**
 
 ---
+<!-- header: Standards -->
+
+# Development of the standards
+
+---
 
 ## Logs v2
-<!-- header: Standards -->
 
 New RFC 9162
 
@@ -336,9 +352,13 @@ A threat actor could mount an attack by coercing 1 root CA + 2 CT logs
 It is relatively easy to become a log operator (and it should be!).
 
 ---
+<!-- header: luCT -->
+
+# luCT: Auditing directly in the browser
+
+---
 
 ## What can we do?
-<!-- header: luCT -->
 
 - Browsers (and other clients) should be able to inspect the log
 - Should not be the default behavior
@@ -346,7 +366,7 @@ It is relatively easy to become a log operator (and it should be!).
 - There should be a gossiping mechanism
 
 Note that the log data is public. We can build those things!
-We don't need to ask permission!
+No need for more standardization!
 
 ---
 
@@ -394,7 +414,7 @@ Oblivious proxy (WIP):
 
 Nope, not yet!
 
-**Idea:**
+Idea:
 - Fetch STH timeline from network of checkpointing servers
 - Validate extension proofs on timeline
 
@@ -419,17 +439,18 @@ CA + CT + luCT + Gossip | 1 CA + 2 CT + checkpointer | Full eclipse?
 
 What if an attacker just submits a rogue certificate to honest logs, but the domain owners don't care to ever check logs for rogue certificates?
 
-**Idea:**
+Idea:
 
 - Check CAA (RFC 8659) and TLSA (RFC 6698) records via DNS over HTTPs
-- Display special icon if entries match
+- Display special icon if matching entries exist
+- Motivate admins to use CAA
 
 ---
 
 ## Definitely try this at home!
 
 - If you are a website admin / domain owner: 
-    - Check [crt.sh](crt.sh) and subscribe to E-Mail alert
+    - Check [crt.sh](https://crt.sh) and subscribe to E-Mail alert
 - If you have lots of compute:
     - Consider becoming a log operator
 - If you can put up with half backed software:
@@ -437,10 +458,13 @@ What if an attacker just submits a rogue certificate to honest logs, but the dom
 
 
 ---
-
-## Outlook
 <!-- header: Outlook -->
 
+# Outlook
+
+---
+
+## Improve certificate transparency
 The story does not end here!
 
 Some ideas:
@@ -451,13 +475,24 @@ Some ideas:
 - Content addressable tiles
 ---
 
-## Outlook
+## Other applications
 
-And transparency logs have also many applications outside of certificates, e.g.
-- Binary transparency logs
+Transparency logs have also many applications outside of certificates, e.g.
+- Software transparency logs (both source and binary distribution)
 - Key transparency logs
 
-These systems have been deployed to some degree, e.g. Go package manager, WhatApp
+These systems have been successfully deployed, e.g. Go checksum database, WhatApp keysever, Keybase
+
+---
+
+## Using transparency logs as certificates
+
+Draft: [draft-ietf-plants-merkle-tree-certs-02](https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/02/)
+
+Idea:
+- Present inclusion proof instead of signature in certificate
+- Negotiate tree head to proof against in TLS client hello
+- Motivated by possibly large signatures in post-quantum crypto
 
 ---
 
@@ -475,19 +510,11 @@ Questions?
 
 ## Lets get in touch!
 
-<i class="fa fa-at" aria-hidden="true"></i> [luct.dev](luct.dev)
+<i class="fa fa-at" aria-hidden="true"></i> [luct.dev](https://luct.dev)
 
 <i class="fa fa-github" aria-hidden="true"></i> [github.com/Sawchord/luct](https://github.com/Sawchord/luct)
 
-<i class="fa fa-comment" aria-hidden="true"></i> [matrix.luct.dev](matrix.luct.dev)
+<i class="fa fa-comment" aria-hidden="true"></i> [matrix.luct.dev](https://matrix.luct.dev)
 
 </div>
 </div>
-
----
-
-# Bonus slides!
-
----
-
-## Cosmic rays vs. certificate transparency
