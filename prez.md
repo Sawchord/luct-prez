@@ -26,7 +26,7 @@ tr:last-of-type {
   }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 # A decade in certificate transparency and what may come next
 
@@ -47,7 +47,7 @@ TODO
 
 - There are multiple good talks on CT. Go watch them!
     - [Everything you always wanted to know about Certificate Transparency](https://media.ccc.de/v/33c3-8167-everything_you_always_wanted_to_know_about_certificate_transparency)
-    - Who watches the watchers in Web PKI? TODO: Link
+    - [Who watches the watchers in Web PKI?](https://media.ccc.de/v/emf2018-352-who-watches-the-watchers-in-web-pki)
 - These talks focus on the protocol itself and the ongoing rollout
 - This talk will focus on what happened since
 
@@ -70,11 +70,11 @@ Any of those could potentially maliciously issue a certificate which could be us
 
 ## This is not a theoretic threat!
 
-Canonical example: DigiNotar TODO: Link (2011)
+Canonical example: [DigiNotar](https://en.wikipedia.org/wiki/DigiNotar#Issuance_of_fraudulent_certificates) (2011)
 
 TL;DR: 
 - They got infiltrated
-- Attackers issued certificates against 500+ domains
+- Attackers issued certificates against at least 531 domains
 - Including `*.google.com`, `*.windowsupdate.com`, `*.mozilla.org`
 - Very delayed response by the company
 - They got kicked out of trust store and went bankrupt
@@ -95,7 +95,7 @@ Trusting CAs to keep a record of all the certificates they issued and investigat
 Idea:
 - Certificates need to be logged in a publicly verifiable audit log
 - Certificates embed some artifact that "proves" they have been logged
-- Standardized in RFC 6962 TODO: Link
+- Standardized in [RFC 6962](https://datatracker.ietf.org/doc/rfc6962/)
 - There are more ways to use CT but they have not seen adoption
 
 ---
@@ -271,7 +271,7 @@ But on the other hand:
 
 ## Logs v2
 
-New RFC 9162
+New [RFC 9162](https://datatracker.ietf.org/doc/rfc9162/)
 
 - Obsoletes RFC 6962
 - Mostly concerned with cryptoagility
@@ -292,7 +292,7 @@ Solution: Store merkle tree in a static file format
 - Can be georeplicated
 - CDNs can cache the files
 
-**This is being rolled right now. Currently RFC 6962 and static-ct logs coexist**
+**This is being rolled right now. Currently RFC 6962 and [static-ct](https://github.com/C2SP/C2SP/blob/main/static-ct-api.md) logs coexist**
 
 ---
 
@@ -309,6 +309,7 @@ Solution: Store merkle tree in a static file format
 - There is a document from IETF
     - [draft-ietf-trans-gossip-05](https://datatracker.ietf.org/doc/draft-ietf-trans-gossip/)
 - It names 3 gossiping methods
+    - TODO: Name the types
 - **Latest revision 2018-01-14 :(**
 
 Not much momentum here right now
@@ -441,9 +442,9 @@ What if an attacker just submits a rogue certificate to honest logs, but the dom
 
 Idea:
 
-- Check CAA (RFC 8659) and TLSA (RFC 6698) records via DNS over HTTPs
+- Check CAA ([RFC 8659](https://datatracker.ietf.org/doc/rfc8659/)) and TLSA ([RFC 6698](https://datatracker.ietf.org/doc/rfc6698/)) records via DNS over HTTPs
 - Display special icon if matching entries exist
-- Motivate admins to use CAA
+- Motivate admins to use them (and registrars to support them!)
 
 ---
 
@@ -503,7 +504,8 @@ Idea:
 
 # TYSM!!
 
-Questions?
+## Questions?
+
 
 </div>
 <div>
@@ -511,10 +513,17 @@ Questions?
 ## Lets get in touch!
 
 <i class="fa fa-at" aria-hidden="true"></i> [luct.dev](https://luct.dev)
-
 <i class="fa fa-github" aria-hidden="true"></i> [github.com/Sawchord/luct](https://github.com/Sawchord/luct)
-
 <i class="fa fa-comment" aria-hidden="true"></i> [matrix.luct.dev](https://matrix.luct.dev)
 
+Slides:
+<div id="qrcode"></div>
+<script>
+    var qrcode = new QRCode("qrcode", "https://luct.dev/prez.html");
+</script>
+
+[luct.dev/prez.html](https://luct.dev/prez.html)
+
 </div>
+ 
 </div>
