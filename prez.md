@@ -145,7 +145,7 @@ Idea:
 # Success?
 
 CT is widely deployed.
-We are done here arent we?
+So are we done here?
 
 ![bg right 80%](pics/htph_thumbs_up.jpg)
 
@@ -155,8 +155,9 @@ We are done here arent we?
 
 Spoiler alert: A lot!
 
-- Some ideas from original design have not caught on
 - Some issues emerged over time
+- Some ideas from original design have seen adoption
+
 
 ---
 <!-- header: Log operators -->
@@ -479,11 +480,14 @@ Some ideas:
 
 ## Other applications
 
-Transparency logs have also many applications outside of certificates, e.g.
+Transparency logs have applications outside of CT:
 - Software transparency logs (both source and binary distribution)
 - Key transparency logs
 
-These systems have been successfully deployed, e.g. Go checksum database, WhatApp keysever, Keybase
+These systems have been successfully deployed:
+- Go checksum database
+- Keybase
+- WhatApp 
 
 ---
 
@@ -492,9 +496,11 @@ These systems have been successfully deployed, e.g. Go checksum database, WhatAp
 Draft: [draft-ietf-plants-merkle-tree-certs-02](https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/02/)
 
 Idea:
-- Present inclusion proof instead of signature in certificate
-- Negotiate tree head to proof against in TLS client hello
-- Motivated by possibly large signatures in post-quantum crypto
+- CAs run their own logs
+- Replace certificate signatures with inclusion proofs
+- Negotiate which tree head in TLS client hello
+
+**Motivated by large signatures of post-quantum crypto**
 
 ---
 
