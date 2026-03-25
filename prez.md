@@ -174,7 +174,7 @@ Spoiler alert: A lot!
 - Sectigo (US)
 - Let's Encrypt (US)
 - TrustAsia (China)
-- Geomys (Italy ??)
+- Geomys (??)
 - IPng Networks (Switzerland)
 
 --- 
@@ -193,7 +193,7 @@ Spoiler alert: A lot!
 
 ---
 
-## How to get on the log list
+## How to become a log operator
 
 [Chromium Certificate Transparency Log Policy](https://googlechrome.github.io/CertificateTransparency/log_policy.html): 
 - Write an application to Chromium (via bug tracker)
@@ -208,6 +208,19 @@ Spoiler alert: A lot!
 # Managing log lists
 
 ---
+
+## Governance
+
+General governance via two google groups:
+    - [certificate-transpareny](https://groups.google.com/g/certificate-transparency) for general discussions
+    - [ct-policy](https://groups.google.com/a/chromium.org/g/ct-policy/) for coordination between browser vendors and log operators
+
+
+This works generally very well.
+
+---
+
+## Log list schema
 
 The schema is not part of the standard but ad-hoc invention by the Chromium team.
 
@@ -521,7 +534,7 @@ Idea:
 
 <i class="fa fa-at" aria-hidden="true"></i> [luct.dev](https://luct.dev)
 <i class="fa fa-github" aria-hidden="true"></i> [github.com/Sawchord/luct](https://github.com/Sawchord/luct)
-<i class="fa fa-comment" aria-hidden="true"></i> [matrix.luct.dev](https://matrix.luct.dev)
+<i class="fa fa-comment" aria-hidden="true"></i> [#luct:matrix.org](https://matrix.to/#/#luct:matrix.org)
 
 Slides:
 <div id="qrcode"></div>
