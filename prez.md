@@ -25,8 +25,8 @@ tr:last-of-type {
     gap: 1rem;
   }
 </style>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="assets/font-awesome.min.css" rel="stylesheet"/>
+<script src="assets/qrcode.min.js"></script>
 
 # A decade in certificate transparency and what may come next
 
