@@ -142,7 +142,7 @@ Idea:
 
 ## Situation in 2026
 
-# Success?
+# Mission acomplished?
 
 CT is widely deployed.
 So are we done here?
@@ -311,6 +311,10 @@ Solution: Store merkle tree in a static file format
 **This is being rolled right now. Currently RFC 6962 and [static-ct](https://github.com/C2SP/C2SP/blob/main/static-ct-api.md) logs coexist**
 
 ---
+
+![bg 70%](pics/standards_distracted_boyfriend.jpg)
+
+---
 <!-- header: Adoption -->
 
 # Adoption 
@@ -364,6 +368,12 @@ Privacy:
 ---
 
 ![bg 70%](diagrams/CT_ecosystem_real.svg)
+
+---
+
+# TL;DR:
+
+![bg 60%](pics/adoption_horse.jpg)
 
 ---
 
