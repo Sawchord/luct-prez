@@ -224,16 +224,18 @@ This works generally very well.
 
 The schema is not part of the standard but ad-hoc invention by the Chromium team.
 
-**This has created a lot of problems**
+**This has created problems**
 
 ---
 
 ## Issue with fetching log lists
 
+Actual incident:
+
 - There is an android library for CT enforcement
 - Google changes schema from v2 to v3
 - Developers forget to update library
-- App breaks, 100+ Million of user affected
+- App breaks, 100+ million of user affected
 
 ---
 
@@ -466,11 +468,11 @@ Idea:
 
 - If you are a website admin / domain owner: 
     - Check [crt.sh](https://crt.sh) and subscribe to E-Mail alert (e.g. cloudflare)
-- If you have lots of compute:
-    - Consider becoming a log operator
+- Consider becoming a log operator
 - If you can put up with half backed software:
-    - **Try out luCT!**
+    - Try out luCT!
     - Help wanted!
+    - **Keep in mind this is alpha software!**
 
 
 ---
