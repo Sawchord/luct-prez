@@ -248,14 +248,24 @@ Actual incident:
 
 ---
 
-## Vendoring log lists
-Log lists have a kind of chicken and egg problem
+## Distributing log lists
+Log lists have a kind of chicken and egg problem:
 
-- Clients must vendor the list 
-- Distribute it using established update channels
-- **How to secure the update channel?**
+- Clients must have the list to make connections
 
-**It can not replace certificate pinning!**
+But:
+
+- How to fetch the list without making connections?
+
+---
+
+## Web browser clients
+
+- Initial log list is vendored via package mangager, app store etc.
+- Update log list via HTTP request
+- Deactivate CT enforcement if list is 70 days out of date
+
+**UX wise good decision, but can prevent CT usage altogether**
 
 ---
 
@@ -265,7 +275,8 @@ Log lists have a kind of chicken and egg problem
 
 But on the other hand:
 
-- **CT could likely have prevented Notepad++ attack**
+- **CT could likely have prevented Notepad++ attack!**
+
 
 ---
 <!-- header: Standard -->
