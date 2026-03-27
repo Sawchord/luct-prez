@@ -142,7 +142,7 @@ Idea:
 
 ## Situation in 2026
 
-# Mission acomplished?
+# Mission accomplished?
 
 CT is widely deployed.
 So are we done here?
