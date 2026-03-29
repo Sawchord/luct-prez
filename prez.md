@@ -445,6 +445,10 @@ No need for more standardization!
 
 ---
 
+![bg 60%](pics/luct-demo2.png)
+
+---
+
 ## Privacy
 
 Oblivious proxy (WIP):
