@@ -23,7 +23,19 @@ tr:last-of-type {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
-  }
+}
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stylish-button {
+  background-color: #00000000;
+  border: none;
+  padding: 12px 16px;
+  font-size: 24px;
+  cursor: pointer;
+}
 </style>
 <link href="assets/font-awesome.min.css" rel="stylesheet"/>
 <script src="assets/qrcode.min.js"></script>
@@ -416,7 +428,20 @@ No need for more standardization!
 
 ---
 
-TODO: Gif showing the tool
+<div class="video-container">
+    <video id="luct-demo1" width="95%" autoplay muted>
+        <source src="vids/luct_demo.mp4" type="video/mp4" />
+    </video>
+    <button class="stylish-button" onClick="(function(){
+            const video = document.getElementById('luct-demo1');
+            video.currentTime = 0;
+            video.play();
+            return false;
+        })();">
+        <i class="fa fa-rotate-left" aria-hidden="true"></i>
+    </button>
+</div>
+
 
 ---
 

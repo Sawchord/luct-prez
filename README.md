@@ -11,3 +11,5 @@ Also a useful tool to check that all links work:
 pip3 install linkchecker
 linkchecker prez.html --check-extern -o text
 ```
+
+    https://nightly.link/Sawchord/luct/workflows/CI/main/luct-extension.zip
