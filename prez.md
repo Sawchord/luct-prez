@@ -136,19 +136,12 @@ Idea:
 
 ---
 
-## Monitors
-- Follow (tail) logs
-- Some offer search engines such as [crt.sh](https://crt.sh)
-- Some offer to send E-Mails if certs are issued
-- Governance of CT ecosystem via mailing list
-
----
 
 ## Situation in 2026
 
 - Browsers maintain a list of logs (url + pubkey) they recognize
-- Logs accept certificates of a certain expiration date (temporal sharding)
-- Certs require 2 (if TTL < 180 Days) or 3 SCTs to be valid
+- Certs require 2 (if TTL < 180 Days) or 3 valid SCTs
+- Otherwise they will reject the certificate
 
 ---
 
@@ -196,7 +189,7 @@ Spoiler alert: A lot!
 
 ---
 
-## Log list maintainers
+## Log operator lists
 
 - Chromiums `log_list.json` has effectively become the consensus
 - Is served at [https://www.gstatic.com/ct/log_list/v3/log_list.json](https://www.gstatic.com/ct/log_list/v3/log_list.json)
@@ -229,6 +222,15 @@ General governance via two google groups:
 
 
 This works generally very well.
+
+---
+
+## Governance
+
+- Each log operator runs multiple logs
+- Logs accept certs with specific expiration dates (temporal sharding)
+- Shard length between 3 Month and 1 Year
+- Usually 2 logs per operator per shard
 
 ---
 
@@ -287,8 +289,7 @@ But:
 
 But on the other hand:
 
-- **CT could likely have prevented Notepad++ attack!**
-
+- **CT may have mitigated [Notepad++ attack!](https://sscsecurity.dev/book1/chapter-07/ch-7.9/)**
 
 ---
 <!-- header: Standard -->
@@ -337,23 +338,13 @@ Solution: Store merkle tree in a static file format
 
 ---
 
-## Gossiping
+## Monitors
+- Follow (tail) logs
+- Some offer search engines such as [crt.sh](https://crt.sh)
+- Some offer to send E-Mails if certs are issued
+- Should be used by domain owners to validate certificate issuance
 
-- Forking is computationally cheap (this is not a blockchain)
-- To prevent / detect forked logs requires clients to exchange STHs
-- Existing standards are quite handwavy about this
-
----
-
-## Gossip is not really a thing yet
-
-- There is a document from IETF
-    - [draft-ietf-trans-gossip-05](https://datatracker.ietf.org/doc/draft-ietf-trans-gossip/)
-- It names 3 gossiping methods
-    - SCT feedback: Send SCT to an auditor via server
-    - STH pollination: Clients share STHs via pools
-    - Trusted Auditor relationship
-- **Latest revision 2018-01-14 :(**
+They exist and are being used to some degree
 
 ---
 
@@ -378,6 +369,27 @@ Privacy:
 - Asking a log for a proof gives away which website is visited
 
 ---
+
+## Gossiping
+
+- Forking is computationally cheap (this is not a blockchain)
+- To prevent / detect forked logs requires clients to exchange STHs
+- Existing standards are quite handwavy about this
+
+---
+
+## Gossip is not really a thing yet
+
+- There is a document from IETF
+    - [draft-ietf-trans-gossip-05](https://datatracker.ietf.org/doc/draft-ietf-trans-gossip/)
+- It names 3 gossiping methods
+    - SCT feedback: Send SCT to an auditor via server
+    - STH pollination: Clients share STHs via pools
+    - Trusted Auditor relationship
+- **Latest revision 2018-01-14 :(**
+
+---
+
 
 ![bg 70%](diagrams/CT_ecosystem_real.svg)
 
