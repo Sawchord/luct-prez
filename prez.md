@@ -189,6 +189,10 @@ Spoiler alert: A lot!
 
 ---
 
+![bg 70%](pics/log_operators.png)
+
+---
+
 ## Log operator lists
 
 - Chromiums `log_list.json` has effectively become the consensus
@@ -545,26 +549,28 @@ Idea:
 ---
 
 ## Improve certificate transparency
-The story does not end here!
 
-Some ideas:
+Some ideas from me:
 
 - CT logs with private information retrieval
-- Sealing STHs
-- Better log list management
 - Content addressable tiles
+- Standardize log list management
+
 ---
 
 ## Other applications
 
-Transparency logs have applications outside of CT:
-- Software transparency logs (both source and binary distribution)
-- Key transparency logs
+Transparency logs have applications outside of CT
 
-These systems have been successfully deployed:
-- Go checksum database
-- Keybase
-- WhatApp 
+- Software transparency logs (both source and binary distribution)
+    - Go checksum database
+- Key transparency logs
+    - Keybase
+    - WhatApp 
+
+
+
+
 
 ---
 
