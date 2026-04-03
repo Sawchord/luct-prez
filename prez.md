@@ -122,7 +122,7 @@ Idea:
 
 ## Certificate transparency
 
-- Log operators include logs in a merkle tree
+- Log operators include certs in a merkle tree
 - Entries can be precerts or full certificates (cross-posting)
 - Logs regularly publish a signed tree head (STH)
 
@@ -212,6 +212,15 @@ Spoiler alert: A lot!
 - Maintain 99% uptime
 
 ---
+
+## Log operators
+
+- Each log operator runs multiple logs
+- Logs accept certs with specific expiration dates (temporal sharding)
+- Shard length between 3 Month and 1 Year
+- Usually 2 logs per operator per shard
+
+---
 <!-- header: Managing log lists -->
 
 # Managing log lists
@@ -229,14 +238,6 @@ This works generally very well.
 
 ---
 
-## Governance
-
-- Each log operator runs multiple logs
-- Logs accept certs with specific expiration dates (temporal sharding)
-- Shard length between 3 Month and 1 Year
-- Usually 2 logs per operator per shard
-
----
 
 ## Log list schema
 
@@ -280,7 +281,7 @@ But:
 ## Web browser clients
 
 - Initial log list is vendored via package mangager, app store etc.
-- Update log list via HTTP request
+- Update log list via HTTPs request
 - Deactivate CT enforcement if list is 70 days out of date
 
 **UX wise good decision, but can prevent CT usage altogether**
@@ -502,8 +503,6 @@ Idea:
 - Fetches extension proofs of the timeline
 
 ---
-
-## Threat model
 
 Scenario | Attack requirement | Attack
 -----|------|------
