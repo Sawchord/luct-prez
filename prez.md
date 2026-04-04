@@ -128,6 +128,10 @@ Idea:
 
 ---
 
+![bg 60%](diagrams/tree.svg)
+
+---
+
 ## Validating logs
 
 - Request and validate signed tree head against public key
@@ -327,6 +331,10 @@ Solution: Store merkle tree in a static file format
 - CDNs can cache the files
 
 **This is being rolled right now. Currently RFC 6962 and [static-ct](https://github.com/C2SP/C2SP/blob/main/static-ct-api.md) logs coexist**
+
+---
+
+![bg 60%](diagrams/tree_tiling.svg)
 
 ---
 
