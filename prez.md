@@ -225,15 +225,10 @@ Spoiler alert: A lot!
 - Usually 2 logs per operator per shard
 
 ---
-<!-- header: Managing log lists -->
-
-# Managing log lists
-
----
 
 ## Governance
 
-General governance via two google groups:
+Via two google groups:
     - [certificate-transpareny](https://groups.google.com/g/certificate-transparency) for general discussions
     - [ct-policy](https://groups.google.com/a/chromium.org/g/ct-policy/) for coordination between browser vendors and log operators
 
@@ -241,7 +236,11 @@ General governance via two google groups:
 This works generally very well.
 
 ---
+<!-- header: Log lists -->
 
+# Log lists
+
+---
 
 ## Log list schema
 
@@ -545,7 +544,7 @@ Idea:
 - If you can put up with half backed software:
     - Try out luCT!
     - Help wanted!
-    - **Keep in mind this is alpha software!**
+    - **Keep in mind this is pre-alpha software!**
 
 
 ---
