@@ -55,7 +55,7 @@ tr:last-of-type {
 
 I am not affiliated with any party mentioned in this talk!
 Views expressed here are my own.
-I do not claim to represent the CT ecosystem as a whole.
+I do not claim to represent the CT community as a whole.
 
 ---
 <!-- header: Prior talks -->
@@ -96,7 +96,7 @@ TL;DR:
 - Including `*.google.com`, `*.windowsupdate.com`, `*.mozilla.org`
 - Very delayed response by the company
 - They got kicked out of trust store and went bankrupt
-- Certificates where used for attacks in Iran
+- Certificates were used for attacks in Iran
 
 --- 
 
