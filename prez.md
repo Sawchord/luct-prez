@@ -40,7 +40,13 @@ tr:last-of-type {
 <link href="assets/font-awesome.min.css" rel="stylesheet"/>
 <script src="assets/qrcode.min.js"></script>
 
+
+<div style='text-align: center;'>
+
 # A decade in certificate transparency and what may come next
+
+</div>
+
 
 ---
 <!-- header: Disclaimer -->
@@ -229,7 +235,7 @@ Spoiler alert: A lot!
 ## Governance
 
 Via two google groups:
-    - [certificate-transpareny](https://groups.google.com/g/certificate-transparency) for general discussions
+    - [certificate-transparency](https://groups.google.com/g/certificate-transparency) for general discussions
     - [ct-policy](https://groups.google.com/a/chromium.org/g/ct-policy/) for coordination between browser vendors and log operators
 
 
@@ -511,12 +517,19 @@ Idea:
 
 ---
 
+# More stuff we could do
+
+- Check CAA ([RFC 8659](https://datatracker.ietf.org/doc/rfc8659/)) and TLSA ([RFC 6698](https://datatracker.ietf.org/doc/rfc6698/)) records via DNS over HTTPs
+- Abillity to block root CAs entirely
+
+---
+
 Scenario | Attack requirement | Attack
 -----|------|------
 CA only (2016) | 1 CA | Rogue cert
 CA + CT (today) | 1 CA + 2 CT | Rogue cert + fake SCTs
 CA + CT + luCT (soon) | 1 CA + 2 CT  | Rogue cert + forked logs
-CA + CT + luCT + Gossip | 1 CA + 2 CT + checkpointer | Full eclipse?
+CA + CT + luCT + Gossip | 1 CA + 2 CT + checkpointer | ??
 
 ---
 
@@ -528,11 +541,6 @@ CA + CT + luCT + Gossip | 1 CA + 2 CT + checkpointer | Full eclipse?
 
 What if an attacker just submits a rogue certificate to honest logs, but the domain owners don't care to ever check logs for rogue certificates?
 
-Idea:
-
-- Check CAA ([RFC 8659](https://datatracker.ietf.org/doc/rfc8659/)) and TLSA ([RFC 6698](https://datatracker.ietf.org/doc/rfc6698/)) records via DNS over HTTPs
-- Display special icon if matching entries exist
-- Motivate admins to use them (and registrars to support them!)
 
 ---
 
