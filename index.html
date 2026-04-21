@@ -175,26 +175,39 @@
         <li>Type <code> about:debugging </code> into your browser</li>
         <li>Load the <code> luct.xpi </code></li>
       </ol>
+
+      <b>
+        ❗CAUTION: The tool is still in very early development.
+        Please treat it as a toy at this point in time.
+        Do not rely on the output of the tool in any way!❗
+      </b>
     </section>
 
     <!-- FEATURES -->
     <section class="section">
       <h2>Features and roadmap </h2>
 
-      <h3>Alpha roadmap</h3>
+      <h3>Pre-alpha roadmap</h3>
       <ul>
         <li>✅ Validate inclusion proofs of signed certificate timestamps</li>
         <li>✅ Fetch and update signed tree heads</li>
         <li>✅ Validate extension proofs</li>
         <li>✅ static-ct-api support</li>
-        <li>🚧 Use TLS proxy to preserve privacy</li>
+        <li>✅ Oblivious TLS proxy to preserve privacy</li>
         <li>🚧 UI dashboard</li>
+        <li>🚧 Publish in mozilla extension store</li>
+      </ul>
+
+      <h3>Alpha roadmap</h3>
+      <ul>
+        <li>🚧 STH checkpoint verification</li>
+        <li>🚧 Oblivious TLS proxy for CLI</li>
+        <li>🚧 Root denylist with timelock</li>
       </ul>
 
       <h3>Post alpha roadmap</h3>
       <ul>
-        <li>🚧 STH checkpointing and gossiping</li>
-        <li>🚧 Crosscheck with DNS over HTTPs</li>
+        <li>🚧 DNS over HTTPs</li>
         <li>🚧 CAA and TLSA validation</li>
       </ul>
     </section>
