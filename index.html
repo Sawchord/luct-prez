@@ -121,7 +121,9 @@
     <!-- HERO -->
     <section class="hero">
       <h1>luCT</h1>
-      <p>Audit Certificate Transparency logs directly in Firefox</p>
+      <p>
+        luCT (pronounced "lucid") is a digital self defense tool that adds an extra layer of security to HTTPs by
+        auditing certificate's log inclusion proofs locally in real time, as you browse.</p>
 
       <div class="buttons">
         <a href="https://github.com/Sawchord/luct" class="primary">⭐ View on GitHub</a>
@@ -130,60 +132,62 @@
       </div>
     </section>
 
-    <!-- DEMO -->
+
     <section class="section">
-      <div class="video-container">
-        <video id="luct-demo1" width="95%" autoplay loop muted>
-          <source src="vids/luct_demo.mp4" type="video/mp4" />
-        </video>
-        <button hidden="true class=" stylish-button" onClick="(function(){
-            const video = document.getElementById('luct-demo1');
-            video.currentTime = 0;
-            video.play();
-            return false;
-        })();">
-          <i class="fa fa-rotate-left" aria-hidden="true"></i>
-        </button>
+
+      <h2>Try it for yourself!</h2>
+
+      <ol>
+        <li>Install the Firefox extension</li>
+        <li>Browse normally</li>
+        <li>Look for the <img src="./pics/luct_safe.svg" atl="luCT icon" width="12em"> indicator when CT
+          inclusion is verified</li>
+      </ol>
+
+      <div>
+        <img src="./pics/example-usage.gif" alt="Example usage of luCT" />
       </div>
 
     </section>
 
-    <!-- WHY -->
     <section class="section">
-      <h2>Why this exists</h2>
+      <h2>Project status</h2>
       <p>
-        Certificate transparency is a protocol and ecosystem to make the Web more secure by requiring certificate
-        authorities to publish their activity to publicly verifiable certificate transparency logs.
-      </p>
-      <p>
-        luCT will fetch and verify log entries for websites that you visit in the background.
+        This project is <b>🚧 experimental and not yet audited 🚧</b>.
+
+      <ul>
+        <li>❗ Bugs are likely</li>
+        <li>❗ False positives/negatives may occur</li>
+        <li>❗ Do not rely on this for critical security decisions</li>
+      </ul>
+
+      At this point in time, use it for <b>testing, research, and exploration only</b>.
+
+
       </p>
     </section>
 
-    <!-- GETTING STARTED -->
+
     <section class="section">
-      <h2>Try it for yourself!</h2>
-
-      luCT is still pre-alpha and has not been published yet.
-      As soon as an alpha release becomes available, it will be published here.
-      In the meantime, you can download and test the current development version like this:
-
-      <ol>
-        <li> <a href="https://nightly.link/Sawchord/luct/workflows/CI/main/luct-extension.zip" class="link">Download</a>
-          the development version</li>
-        <li>Unzip it. There should be <code> luct.xpi </code> file</li>
-        <li>Type <code> about:debugging </code> into your browser</li>
-        <li>Load the <code> luct.xpi </code></li>
-      </ol>
-
-      <b>
-        ❗CAUTION: The tool is still in very early development.
-        Please treat it as a toy at this point in time.
-        Do not rely on the output of the tool in any way!❗
-      </b>
+      <h2>How it works</h2>
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Certificate_Transparency">Certificate transparency</a> helps to improve
+        the security of the Web by requiring certificate authorities to log their certificates in an append only log.
+        Logs return a signed certificate timestamp (SCT) to the certificate authority.
+      </p>
+      <p>
+        Browsers require that there are SCTs in a certificate when establishing a TLS connection and refuse connection
+        otherwise.
+        However, the SCT is just a signed promise that the certificate will be included in the log eventually.
+        Browsers do not actually follow the logs and check inclusion proofs of SCTs that they come by.
+      </p>
+      <p>
+        luCT closes that gap by checking log inclusions while you browse.
+        If everything checks out, it gives an additional checkmark indicator.
+        It is planned to extend luCT over time, such that it includes more and more guarantees over time.
+      </p>
     </section>
 
-    <!-- FEATURES -->
     <section class="section">
       <h2>Features and roadmap </h2>
 
@@ -194,12 +198,13 @@
         <li>✅ Validate extension proofs</li>
         <li>✅ static-ct-api support</li>
         <li>✅ Oblivious TLS proxy to preserve privacy</li>
-        <li>🚧 UI dashboard</li>
-        <li>🚧 Publish in mozilla extension store</li>
+        <li>✅ UI sidebar</li>
+        <li>✅ Publish in mozilla extension store</li>
       </ul>
 
       <h3>Alpha roadmap</h3>
       <ul>
+        <li>🚧 Extended log information in dashboard</li>
         <li>🚧 STH checkpoint verification</li>
         <li>🚧 Oblivious TLS proxy for CLI</li>
         <li>🚧 Root denylist with timelock</li>
