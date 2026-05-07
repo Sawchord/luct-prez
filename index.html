@@ -35,7 +35,7 @@
 
     .hero {
       text-align: center;
-      padding: 80px 20px;
+      margin: 60px 20px;
     }
 
     .hero h1 {
@@ -76,7 +76,7 @@
     }
 
     .section {
-      margin-top: 60px;
+      margin: 40px 0px;
     }
 
     code {
@@ -111,6 +111,15 @@
       color: #64748b;
       font-size: 0.9rem;
     }
+
+    .luct-logo {
+      fill: white;
+      filter: invert(0.8);
+    }
+
+    .example {
+      border-radius: 12px;
+    }
   </style>
 </head>
 
@@ -140,12 +149,14 @@
       <ol>
         <li>Install the Firefox extension</li>
         <li>Browse normally</li>
-        <li>Look for the <img src="./pics/luct_safe.svg" atl="luCT icon" width="12em"> indicator when CT
-          inclusion is verified</li>
+        <li>Look for the
+          <img class="luct-logo" src="./pics/luct_safe.svg" alt="luCT icon" width="12em">
+          indicator when CT inclusion is verified
+        </li>
       </ol>
 
       <div>
-        <img src="./pics/example-usage.gif" alt="Example usage of luCT" />
+        <img class="example" src="./pics/example-usage.gif" alt="Example usage of luCT" />
       </div>
 
     </section>
